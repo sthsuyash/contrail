@@ -1,0 +1,64 @@
+[project]
+name = "contrail-pipeline"
+version = "0.1.0"
+description = "Ingestion sink, transforms and orchestration for the Contrail flight telemetry pipeline"
+requires-python = ">=3.11"
+
+dependencies = [
+    "confluent-kafka>=2.6.0",
+    "pyarrow>=18.0.0",
+    "clickhouse-connect>=0.8.0",
+    "s3fs>=2024.10.0",
+    "pydantic>=2.9.0",
+    "pydantic-settings>=2.6.0",
+    "structlog>=24.4.0",
+]
+
+[project.optional-dependencies]
+orchestration = [
+    "dagster>=1.9.0",
+    "dagster-webserver>=1.9.0",
+    "dagster-dbt>=0.25.0",
+    "dbt-core>=1.9.0",
+    "dbt-clickhouse>=1.8.0",
+]
+api = [
+    "fastapi>=0.115.0",
+    "uvicorn[standard]>=0.32.0",
+]
+dev = [
+    "pytest>=8.3.0",
+    "pytest-cov>=6.0.0",
+    "ruff>=0.8.0",
+    "mypy>=1.13.0",
+]
+
+[project.scripts]
+contrail-sink = "contrail.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["contrail"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "UP", "B", "SIM", "RUF"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_unreachable = true
+# Third-party packages without bundled type information.
+[[tool.mypy.overrides]]
+module = ["confluent_kafka.*", "s3fs.*", "clickhouse_connect.*", "pyarrow.*"]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
