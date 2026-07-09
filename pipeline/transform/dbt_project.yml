@@ -1,0 +1,55 @@
+name: contrail
+version: "1.0.0"
+config-version: 2
+
+profile: contrail
+
+model-paths: ["models"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+test-paths: ["tests"]
+target-path: "target"
+clean-targets: ["target", "dbt_packages"]
+
+vars:
+  # Gap after which an aircraft's next sighting starts a new flight.
+  #
+  # This cannot simply be "a few minutes". Coverage is regional and rotates, and
+  # the scheduler's staleness ceiling already permits a 10-minute gap between
+  # polls of the same region, so an aircraft crossing between regions is
+  # routinely unobserved for longer than that without having landed. Set the
+  # threshold too low and one flight shatters into several; too high and a
+  # turnaround merges two flights into one. 30 minutes sits above the coverage
+  # gap and below a realistic turnaround.
+  session_gap_minutes: 30
+
+  # Radius within which a session endpoint is attributed to an airport.
+  # Generous enough to catch a fix taken on approach rather than at the gate.
+  airport_match_km: 8
+
+  # Position fixes staler than this are excluded from geospatial models.
+  # Measured staleness reaches 5497s at the maximum; placing an aircraft using
+  # a fix that old would be wrong by an hour and a half of flying.
+  max_position_age_seconds: 60
+
+models:
+  contrail:
+    +materialized: view
+    staging:
+      +schema: staging
+    intermediate:
+      +materialized: table
+    marts:
+      +materialized: table
+
+seeds:
+  contrail:
+    airports:
+      +column_types:
+        icao: String
+        iata: String
+        name: String
+        country: String
+        latitude: Float64
+        longitude: Float64
+        elevation_m: Int32

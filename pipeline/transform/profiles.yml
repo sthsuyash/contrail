@@ -1,0 +1,21 @@
+# dbt connection profile.
+#
+# Values default to the local Compose stack, so `dbt build` works with no setup
+# once `docker compose up` is running. CI overrides the host via environment.
+
+contrail:
+  target: dev
+  outputs:
+    dev:
+      type: clickhouse
+      host: "{{ env_var('CONTRAIL_CLICKHOUSE_HOST', 'localhost') }}"
+      port: "{{ env_var('CONTRAIL_CLICKHOUSE_PORT', '8123') | int }}"
+      user: "{{ env_var('CONTRAIL_CLICKHOUSE_USER', 'contrail') }}"
+      password: "{{ env_var('CONTRAIL_CLICKHOUSE_PASSWORD', 'contrail') }}"
+      schema: "{{ env_var('CONTRAIL_CLICKHOUSE_DATABASE', 'contrail') }}"
+      secure: false
+      # ClickHouse cannot roll back DDL, so a failed run leaves partial state
+      # either way. Landing models via a swap keeps the visible table intact
+      # until the replacement is complete.
+      use_lw_deletes: false
+      threads: 4
