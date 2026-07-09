@@ -1,0 +1,46 @@
+version: 2
+
+models:
+  - name: stg_state_vectors
+    description: >
+      Deduplicated observations, one row per (icao24, observed_at). Vectors with
+      no position at all are excluded; vectors with a stale position are kept
+      and flagged via has_usable_position.
+    data_tests:
+      # The model's central guarantee. If this fails, the GROUP BY that
+      # implements deduplication has stopped doing so, and every count built
+      # on top of this model is inflated.
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns: [icao24, observed_at]
+    columns:
+      - name: icao24
+        data_tests: [not_null]
+      - name: observed_at
+        data_tests: [not_null]
+      - name: latitude
+        data_tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: -90
+              max_value: 90
+      - name: longitude
+        data_tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: -180
+              max_value: 180
+      - name: has_usable_position
+        description: >
+          Whether the fix is recent enough to place the aircraft. Geospatial
+          models filter on this; coverage models deliberately do not.
+        data_tests: [not_null]
+      - name: altitude_m
+        description: >
+          Geometric altitude where available, barometric otherwise. Geometric is
+          GNSS-derived and does not drift with pressure.
+      - name: source_row_count
+        description: Raw bronze rows that collapsed into this observation.
+        data_tests:
+          - dbt_utils.accepted_range:
+              min_value: 1
+              inclusive: true

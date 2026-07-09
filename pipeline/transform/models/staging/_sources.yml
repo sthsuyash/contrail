@@ -1,0 +1,38 @@
+version: 2
+
+sources:
+  - name: bronze
+    database: contrail
+    schema: contrail
+    description: >
+      Raw state vectors written by the Go ingester. One row per observation
+      before deduplication; see stg_state_vectors for the deduplicated view.
+    tables:
+      - name: bronze_state_vectors
+        description: >
+          ReplacingMergeTree keyed on (icao24, observed_at). Duplicates are
+          collapsed on background merge, so this table may transiently contain
+          more than one row per observation.
+        loaded_at_field: ingested_at
+        freshness:
+          # Regions rotate under a 10-minute staleness ceiling, so a gap of
+          # that order is expected even when everything is healthy. These
+          # thresholds sit above it: a warning only once ingestion has missed
+          # several rotations, an error once it has clearly stopped.
+          warn_after: {count: 30, period: minute}
+          error_after: {count: 2, period: hour}
+        columns:
+          - name: icao24
+            description: ICAO 24-bit transponder address, the airframe identifier.
+            data_tests:
+              - not_null
+          - name: observed_at
+            description: >
+              When the position was measured (time_position), falling back to
+              last_contact when the aircraft has no fix. Not the arrival time.
+            data_tests:
+              - not_null
+          - name: position_age_seconds
+            description: >
+              last_contact minus time_position. Measured p50 0s, p99 101s,
+              max 5497s.
