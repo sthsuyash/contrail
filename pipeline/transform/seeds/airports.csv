@@ -1,0 +1,83 @@
+icao,iata,name,country,latitude,longitude,elevation_m
+EGLL,LHR,London Heathrow,United Kingdom,51.4706,-0.4619,25
+EGKK,LGW,London Gatwick,United Kingdom,51.1481,-0.1903,62
+EGSS,STN,London Stansted,United Kingdom,51.8850,0.2350,106
+EGGW,LTN,London Luton,United Kingdom,51.8747,-0.3683,160
+EGLC,LCY,London City,United Kingdom,51.5053,0.0553,6
+EGCC,MAN,Manchester,United Kingdom,53.3537,-2.2750,78
+EGPH,EDI,Edinburgh,United Kingdom,55.9500,-3.3725,41
+EGBB,BHX,Birmingham,United Kingdom,52.4539,-1.7480,100
+EGGD,BRS,Bristol,United Kingdom,51.3827,-2.7191,189
+EGPF,GLA,Glasgow,United Kingdom,55.8719,-4.4331,8
+EIDW,DUB,Dublin,Ireland,53.4213,-6.2701,74
+EHAM,AMS,Amsterdam Schiphol,Netherlands,52.3086,4.7639,-3
+EHEH,EIN,Eindhoven,Netherlands,51.4501,5.3745,22
+EHRD,RTM,Rotterdam The Hague,Netherlands,51.9569,4.4372,-4
+EBBR,BRU,Brussels,Belgium,50.9014,4.4844,56
+EBCI,CRL,Brussels South Charleroi,Belgium,50.4592,4.4538,187
+ELLX,LUX,Luxembourg,Luxembourg,49.6233,6.2044,376
+EDDF,FRA,Frankfurt am Main,Germany,50.0379,8.5622,111
+EDDM,MUC,Munich,Germany,48.3538,11.7861,448
+EDDL,DUS,Dusseldorf,Germany,51.2895,6.7668,45
+EDDH,HAM,Hamburg,Germany,53.6304,9.9882,16
+EDDB,BER,Berlin Brandenburg,Germany,52.3667,13.5033,47
+EDDS,STR,Stuttgart,Germany,48.6899,9.2220,362
+EDDK,CGN,Cologne Bonn,Germany,50.8659,7.1427,92
+EDDV,HAJ,Hannover,Germany,52.4611,9.6851,56
+EDDN,NUE,Nuremberg,Germany,49.4987,11.0780,319
+LFPG,CDG,Paris Charles de Gaulle,France,49.0097,2.5479,119
+LFPO,ORY,Paris Orly,France,48.7233,2.3794,89
+LFMN,NCE,Nice Cote d Azur,France,43.6584,7.2159,4
+LFLL,LYS,Lyon Saint-Exupery,France,45.7256,5.0811,250
+LFML,MRS,Marseille Provence,France,43.4393,5.2214,21
+LFBO,TLS,Toulouse Blagnac,France,43.6291,1.3638,152
+LFRS,NTE,Nantes Atlantique,France,47.1532,-1.6107,27
+LSZH,ZRH,Zurich,Switzerland,47.4647,8.5492,432
+LSGG,GVA,Geneva,Switzerland,46.2381,6.1089,430
+LSZB,BRN,Bern,Switzerland,46.9141,7.4971,510
+LOWW,VIE,Vienna,Austria,48.1103,16.5697,183
+LOWS,SZG,Salzburg,Austria,47.7933,13.0043,430
+LOWI,INN,Innsbruck,Austria,47.2602,11.3440,581
+LIRF,FCO,Rome Fiumicino,Italy,41.8003,12.2389,5
+LIMC,MXP,Milan Malpensa,Italy,45.6306,8.7281,234
+LIML,LIN,Milan Linate,Italy,45.4451,9.2767,108
+LIME,BGY,Milan Bergamo,Italy,45.6739,9.7042,238
+LIPZ,VCE,Venice Marco Polo,Italy,45.5053,12.3519,2
+LIRN,NAP,Naples,Italy,40.8860,14.2908,90
+LEMD,MAD,Madrid Barajas,Spain,40.4719,-3.5626,610
+LEBL,BCN,Barcelona El Prat,Spain,41.2971,2.0785,4
+LEPA,PMI,Palma de Mallorca,Spain,39.5517,2.7388,8
+LEMG,AGP,Malaga Costa del Sol,Spain,36.6749,-4.4991,16
+LEAL,ALC,Alicante Elche,Spain,38.2822,-0.5582,43
+LEVC,VLC,Valencia,Spain,39.4893,-0.4816,73
+LPPT,LIS,Lisbon Humberto Delgado,Portugal,38.7813,-9.1359,114
+LPPR,OPO,Porto Francisco Sa Carneiro,Portugal,41.2481,-8.6814,69
+LPFR,FAO,Faro,Portugal,37.0144,-7.9659,7
+EKCH,CPH,Copenhagen Kastrup,Denmark,55.6180,12.6560,5
+EKBI,BLL,Billund,Denmark,55.7403,9.1518,75
+ESSA,ARN,Stockholm Arlanda,Sweden,59.6519,17.9186,42
+ESGG,GOT,Gothenburg Landvetter,Sweden,57.6628,12.2798,154
+ENGM,OSL,Oslo Gardermoen,Norway,60.1939,11.1004,208
+ENBR,BGO,Bergen Flesland,Norway,60.2934,5.2181,50
+EFHK,HEL,Helsinki Vantaa,Finland,60.3172,24.9633,55
+BIKF,KEF,Keflavik,Iceland,63.9850,-22.6056,52
+EPWA,WAW,Warsaw Chopin,Poland,52.1657,20.9671,110
+EPKK,KRK,Krakow John Paul II,Poland,50.0777,19.7848,241
+EPGD,GDN,Gdansk Lech Walesa,Poland,54.3776,18.4662,149
+LKPR,PRG,Prague Vaclav Havel,Czechia,50.1008,14.2600,380
+LZIB,BTS,Bratislava,Slovakia,48.1702,17.2127,133
+LHBP,BUD,Budapest Ferenc Liszt,Hungary,47.4369,19.2556,151
+LDZA,ZAG,Zagreb Franjo Tudman,Croatia,45.7429,16.0688,108
+LJLJ,LJU,Ljubljana Joze Pucnik,Slovenia,46.2237,14.4576,388
+LROP,OTP,Bucharest Henri Coanda,Romania,44.5711,26.0850,96
+LBSF,SOF,Sofia,Bulgaria,42.6967,23.4114,531
+LGAV,ATH,Athens Eleftherios Venizelos,Greece,37.9364,23.9445,94
+LGTS,SKG,Thessaloniki Macedonia,Greece,40.5197,22.9709,7
+LTFM,IST,Istanbul,Turkiye,41.2753,28.7519,99
+LTBJ,ADB,Izmir Adnan Menderes,Turkiye,38.2924,27.1570,125
+LTAI,AYT,Antalya,Turkiye,36.8987,30.8005,54
+GCLP,LPA,Gran Canaria,Spain,27.9319,-15.3866,24
+GCTS,TFS,Tenerife South,Spain,28.0445,-16.5725,64
+EETN,TLL,Tallinn Lennart Meri,Estonia,59.4133,24.8328,40
+EVRA,RIX,Riga,Latvia,56.9236,23.9711,10
+EYVI,VNO,Vilnius,Lithuania,54.6341,25.2858,197
