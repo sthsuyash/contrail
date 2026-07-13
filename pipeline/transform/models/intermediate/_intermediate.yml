@@ -1,0 +1,31 @@
+version: 2
+
+models:
+  - name: int_flight_sessions
+    description: >
+      Observations with a flight_id attached. Sessions are bounded by a
+      ground-to-air transition (unambiguous) or by an observation gap longer
+      than session_gap_minutes (ambiguous, and set well above the scheduler's
+      10-minute coverage ceiling so routine rotation gaps do not split flights).
+    columns:
+      - name: flight_id
+        data_tests: [not_null]
+      - name: icao24
+        data_tests: [not_null]
+      - name: observed_at
+        data_tests: [not_null]
+      - name: session_seq
+        description: Running count of session boundaries within an aircraft.
+        data_tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 1
+              inclusive: true
+      - name: flight_phase
+        data_tests:
+          - accepted_values:
+              values: ["ground", "climb", "cruise", "descent", "unknown"]
+      - name: seconds_since_previous
+        description: >
+          Gap to the previous observation of the same aircraft. Null on an
+          aircraft's first sighting.
