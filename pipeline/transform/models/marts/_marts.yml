@@ -1,0 +1,80 @@
+version: 2
+
+models:
+  - name: fct_flights
+    description: >
+      One row per reconstructed flight. Every row is an inference from position
+      pings, not a record of a filed flight plan. Respect is_complete and
+      reconstruction_quality before treating durations as flight times.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns: [flight_id]
+    columns:
+      - name: flight_id
+        description: "{icao24}-{session_seq}, stable across rebuilds."
+        data_tests: [not_null, unique]
+      - name: icao24
+        data_tests: [not_null]
+      - name: departure_time
+        data_tests: [not_null]
+      - name: arrival_time
+        data_tests: [not_null]
+      - name: duration_seconds
+        description: >
+          Time between first and last observation of the session. Only equals
+          flight time when is_complete is true.
+        data_tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+              inclusive: true
+      - name: observation_count
+        description: Positions supporting this reconstruction; sessions under 3 are dropped.
+        data_tests:
+          - dbt_utils.accepted_range:
+              min_value: 3
+              inclusive: true
+      - name: max_altitude_m
+        data_tests:
+          # Well above any civil airframe's ceiling. A violation means altitude
+          # units have been misread somewhere upstream, not that an aircraft
+          # flew unusually high.
+          - dbt_utils.accepted_range:
+              min_value: -500
+              max_value: 25000
+      - name: is_complete
+        description: >
+          Both ends of the flight were observed on the ground, so the session
+          covers the whole flight rather than the part that fell inside coverage.
+        data_tests: [not_null]
+      - name: reconstruction_quality
+        data_tests:
+          - accepted_values:
+              values: ["high", "medium", "low"]
+      - name: max_gap_seconds
+        description: >
+          Longest unobserved stretch within the session. A large value means the
+          flight was stitched across a hole in coverage.
+
+  - name: fct_hourly_traffic
+    description: >
+      Traffic per region per hour. Measured in distinct aircraft, which is
+      invariant to how often the scheduler polled the region; observation counts
+      are carried alongside so polling intensity is never mistaken for traffic.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns: [traffic_hour, region]
+    columns:
+      - name: traffic_hour
+        data_tests: [not_null]
+      - name: region
+        data_tests: [not_null]
+      - name: distinct_aircraft
+        data_tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
+              inclusive: true
+      - name: duplicate_rate_pct
+        description: >
+          Share of raw bronze rows that were duplicate observations. Expected to
+          be substantially higher for regions with more ground traffic.
